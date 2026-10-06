@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RoadSafe 🚦 – Road safety for Tamil Nadu &amp; India</title>
+<meta name="theme-color" content="#7b2ff7">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1d1147;--muted:#5e5a7a;--bg:#f3f0ff;--card:#fff;
+  --pink:#ff3d81;--orange:#ff8a00;--yellow:#ffd23f;--teal:#00b8a9;--blue:#3a86ff;--green:#1fb85b;--purple:#7b2ff7;--red:#e63946;
+  --r:20px;--sh:0 8px 24px rgba(61,29,140,.14);
+}
+@media (prefers-color-scheme:dark){:root{--ink:#f2efff;--muted:#b9b3dd;--bg:#150d36;--card:#231852;--sh:0 8px 24px rgba(0,0,0,.4)}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--bg);font:500 16px/1.6 "Hind Madurai","Noto Sans Tamil","Segoe UI",system-ui,sans-serif;
+  background-image:radial-gradient(rgba(123,47,247,.12) 1.5px,transparent 1.5px);background-size:22px 22px}
+.wrap{width:min(1080px,100% - 1.6rem);margin-inline:auto}
+h1,h2,h3{font-family:"Bricolage Grotesque","Hind Madurai",system-ui,sans-serif;line-height:1.15;margin:0}
+a{color:var(--purple);font-weight:700}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+button{font-family:inherit}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;color:#fff;padding-top:env(safe-area-inset-top);
+  background:linear-gradient(135deg,#2b1b6e 0%,#7b2ff7 38%,#ff3d81 72%,#ff8a00 100%)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.18;
+  background:repeating-linear-gradient(45deg,#fff 0 2px,transparent 2px 14px)}
+.sun{position:absolute;right:-60px;bottom:-90px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,#ffe66d 0,#ffb347 55%,transparent 70%);opacity:.8}
+.hero-in{position:relative;display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:center;padding:2rem 0 3.4rem}
+h1{font-size:clamp(2.6rem,9vw,4.6rem);font-weight:800;letter-spacing:-.03em;text-shadow:0 4px 0 rgba(0,0,0,.2)}
+.tag{margin:.6rem 0 0;max-width:34rem;font-size:1.05rem}
+.ta{margin-top:.5rem;color:var(--yellow);font-weight:600}
+.flags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.flags span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:.2rem .8rem;border-radius:99px;font-size:.9rem;backdrop-filter:blur(4px)}
+.signal{background:#14102e;border-radius:26px;padding:14px;display:grid;gap:10px;border:4px solid #fff;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.signal i{width:46px;height:46px;border-radius:50%;background:#3a3560;display:block}
+.signal i:nth-child(1){animation:r 6s infinite}
+.signal i:nth-child(2){animation:y 6s infinite}
+.signal i:nth-child(3){animation:g 6s infinite}
+@keyframes r{0%,40%{background:#ff2d2d;box-shadow:0 0 22px #ff2d2d}41%,100%{background:#3a3560;box-shadow:none}}
+@keyframes y{0%,40%{background:#3a3560}41%,50%{background:#ffd23f;box-shadow:0 0 22px #ffd23f}51%,100%{background:#3a3560;box-shadow:none}}
+@keyframes g{0%,50%{background:#3a3560}51%,95%{background:#2bd96b;box-shadow:0 0 22px #2bd96b}96%,100%{background:#3a3560;box-shadow:none}}
+.road{position:absolute;left:0;right:0;bottom:0;height:26px;background:#1b1736;border-top:4px solid #fff}
+.road::after{content:"";position:absolute;left:0;right:0;top:9px;height:5px;
+  background:repeating-linear-gradient(90deg,var(--yellow) 0 36px,transparent 36px 72px);background-size:72px 5px;animation:go 1.4s linear infinite}
+@keyframes go{to{background-position:-72px 0}}
+@media (prefers-reduced-motion:reduce){.road::after,.signal i{animation:none}html{scroll-behavior:auto}}
+
+/* SOS bar */
+.sos{display:flex;align-items:center;justify-content:center;gap:.8rem;text-decoration:none;color:#fff;font-weight:700;
+  background:linear-gradient(90deg,var(--red),var(--pink));padding:.8rem 1rem;box-shadow:var(--sh);text-align:center}
+.sos b{font:800 1.9rem/1 "Bricolage Grotesque",sans-serif;background:#fff;color:var(--red);border-radius:12px;padding:.1rem .7rem}
+.sos:active{filter:brightness(.92)}
+
+/* TABS */
+.tabs{position:sticky;top:0;z-index:30;background:var(--card);box-shadow:var(--sh)}
+.tabs-in{display:flex;gap:.5rem;padding:.6rem 0;overflow-x:auto;scrollbar-width:none}
+.tab{--c:var(--blue);flex:1 0 auto;display:flex;align-items:center;justify-content:center;gap:.4rem;cursor:pointer;
+  border:2px solid var(--c);color:var(--c);background:transparent;border-radius:99px;padding:.55rem 1.1rem;font-weight:700;font-size:1rem;min-height:46px;transition:.15s}
+.tab[data-tab=rules]{--c:var(--purple)}.tab[data-tab=contacts]{--c:var(--red)}.tab[data-tab=tips]{--c:var(--green)}.tab[data-tab=signs]{--c:var(--orange)}
+.tab:hover{background:color-mix(in srgb,var(--c) 14%,transparent)}
+.tab[aria-selected=true]{background:var(--c);color:#fff;box-shadow:0 4px 12px color-mix(in srgb,var(--c) 55%,transparent)}
+.tab i{font-style:normal;font-size:1.2rem}
+@media (max-width:700px){
+  .tabs{position:fixed;inset:auto 0 0 0;padding-bottom:env(safe-area-inset-bottom);border-top:3px solid var(--purple)}
+  .tabs-in{gap:.25rem;padding:.4rem .4rem;overflow:visible}
+  .tab{flex-direction:column;gap:0;border:0;border-radius:14px;padding:.3rem .1rem;font-size:.72rem;min-height:52px;flex:1;min-width:0}
+  .tab i{font-size:1.3rem}
+  body{padding-bottom:calc(5.2rem + env(safe-area-inset-bottom))}
+  .hero-in{grid-template-columns:1fr}.signal{display:none}
+}
+
+/* PANELS */
+main{padding:1.2rem 0 2rem}
+.panel{--c:var(--blue);animation:fade .3s ease}
+.panel#rules{--c:var(--purple)}.panel#contacts{--c:var(--red)}.panel#tips{--c:var(--green)}.panel#signs{--c:var(--orange)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.panel[hidden]{display:none}
+h2{font-size:clamp(1.4rem,4vw,2rem);margin:1.8rem 0 .8rem;display:flex;align-items:center;gap:.6rem}
+h2::before{content:"";width:12px;height:1.5em;border-radius:6px;background:linear-gradient(var(--c),var(--pink))}
+.panel>h2:first-child{margin-top:.4rem}
+.note{color:var(--muted);font-size:.9rem;margin:.2rem 0 1rem}
+.src{font-size:.85rem;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.stat{color:#fff;border-radius:var(--r);padding:1.2rem;box-shadow:var(--sh);position:relative;overflow:hidden}
+.stat::after{content:attr(data-e);position:absolute;right:-6px;bottom:-14px;font-size:4.5rem;opacity:.22}
+.stat b{display:block;font:800 2.3rem/1.1 "Bricolage Grotesque",sans-serif}
+.stat span{font-size:.95rem}
+.stat:nth-child(1){background:linear-gradient(135deg,#7b2ff7,#3a86ff)}
+.stat:nth-child(2){background:linear-gradient(135deg,#e63946,#ff8a00)}
+.stat:nth-child(3){background:linear-gradient(135deg,#00b8a9,#1fb85b)}
+.stat:nth-child(4){background:linear-gradient(135deg,#ff3d81,#7b2ff7)}
+
+.box{background:var(--card);border-radius:var(--r);padding:1.1rem 1.2rem;box-shadow:var(--sh)}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.bars li{display:grid;grid-template-columns:minmax(150px,230px) 1fr 3.4rem;gap:.8rem;align-items:center}
+.track{height:18px;border-radius:99px;background:color-mix(in srgb,var(--muted) 22%,transparent);overflow:hidden}
+.fill{display:block;height:100%;width:0;border-radius:99px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.bars em{font-style:normal;font-weight:800;text-align:right}
+@media (max-width:560px){.bars li{grid-template-columns:1fr 3.4rem}.track{grid-column:1/-1;order:3}}
+
+.callout{border-radius:var(--r);padding:1.1rem 1.3rem;color:#fff;background:linear-gradient(135deg,#1fb85b,#00b8a9);box-shadow:var(--sh)}
+.callout a{color:#fff;text-decoration-thickness:3px}
+.callout p{margin:.3rem 0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.card{--a:var(--purple);background:var(--card);border-radius:var(--r);padding:1rem 1.1rem 1.1rem;box-shadow:var(--sh);border-top:7px solid var(--a);display:flex;flex-direction:column;gap:.4rem}
+.card:nth-child(5n+1){--a:var(--pink)}.card:nth-child(5n+2){--a:var(--blue)}.card:nth-child(5n+3){--a:var(--orange)}.card:nth-child(5n+4){--a:var(--teal)}.card:nth-child(5n){--a:var(--purple)}
+.card .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.7rem;background:color-mix(in srgb,var(--a) 18%,transparent)}
+.card h3{font-size:1.1rem}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.fine{align-self:flex-start;background:var(--a);color:#fff;font:800 .95rem "Bricolage Grotesque",sans-serif;padding:.2rem .8rem;border-radius:99px;margin-top:.3rem}
+
+.search{width:100%;padding:.9rem 1.2rem;border-radius:99px;border:3px solid var(--purple);background:var(--card);color:var(--ink);font:inherit;margin-bottom:1rem}
+.empty{color:var(--muted)}
+
+/* Contacts */
+.call{--a:var(--red);text-decoration:none;color:#fff;border-radius:var(--r);padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem;
+  background:linear-gradient(135deg,var(--a),color-mix(in srgb,var(--a) 55%,#000));box-shadow:var(--sh);transition:transform .12s}
+.call:hover{transform:translateY(-3px)}.call:active{transform:scale(.97)}
+.call .ic{font-size:2rem}
+.call h3{font-size:1rem;font-weight:700;flex:1}
+.call small{display:block;font-weight:500;opacity:.9;font-size:.78rem}
+.call .num{font:800 1.6rem "Bricolage Grotesque",sans-serif;background:#fff;color:var(--a);padding:.1rem .8rem;border-radius:12px;white-space:nowrap}
+.call.k1{--a:#e63946}.call.k2{--a:#ff6b00}.call.k3{--a:#3a86ff}.call.k4{--a:#7b2ff7}.call.k5{--a:#00a896}.call.k6{--a:#d6336c}
+
+.row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.8rem}
+.btn{background:#fff;color:var(--green);border:0;border-radius:99px;padding:.7rem 1.3rem;font-weight:800;font-size:1rem;cursor:pointer;min-height:46px}
+.btn.ghost{background:transparent;color:#fff;border:2px solid #fff}
+.btn:active{transform:scale(.97)}
+.status{min-height:1.4rem;font-size:.9rem;margin:.6rem 0 0}
+
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:.7rem}
+.steps li{counter-increment:s;background:var(--card);border-radius:var(--r);padding:.9rem 1rem .9rem 4rem;position:relative;box-shadow:var(--sh)}
+.steps li::before{content:counter(s);position:absolute;left:.9rem;top:.8rem;width:2.3rem;height:2.3rem;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;font:800 1.15rem/2.3rem "Bricolage Grotesque",sans-serif;text-align:center}
+.steps b{display:block}
+
+/* Tips */
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.chip{border:2px solid var(--green);background:transparent;color:var(--green);border-radius:99px;padding:.4rem 1rem;font-weight:700;cursor:pointer;min-height:42px}
+.chip[aria-pressed=true]{background:var(--green);color:#fff}
+details{background:var(--card);border-radius:var(--r);margin-bottom:.7rem;box-shadow:var(--sh);border-left:8px solid var(--green)}
+details:nth-of-type(2n){border-left-color:var(--blue)}details:nth-of-type(3n){border-left-color:var(--orange)}
+summary{cursor:pointer;padding:.95rem 1.1rem;font:800 1.08rem "Bricolage Grotesque","Hind Madurai",sans-serif;list-style:none;display:flex;gap:.6rem;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;font-size:1.6rem;color:var(--pink)}
+details[open] summary::after{content:"–"}
+details ul{margin:0;padding:0 1.2rem 1rem 2.4rem;color:var(--muted)}
+details li{margin:.3rem 0}
+.prog{height:16px;border-radius:99px;background:color-mix(in srgb,var(--muted) 22%,transparent);overflow:hidden;margin:.6rem 0 1rem}
+.prog span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--green));transition:width .4s}
+.check{display:flex;gap:.7rem;align-items:center;padding:.5rem 0;cursor:pointer}
+.check input{width:24px;height:24px;accent-color:var(--green);flex:none}
+.score{font-weight:800}
+
+/* Signs */
+.sign{align-items:center;text-align:center}
+.shape{width:90px;height:90px;display:grid;place-items:center;font-size:2.3rem;margin:.3rem auto}
+.shape.round{border-radius:50%}
+.shape.prohibit{border:9px solid var(--red);background:#fff}
+.shape.mandatory{background:#1f5fbf;color:#fff;box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 6px #1f5fbf}
+.shape.warn{background:var(--red);clip-path:polygon(50% 0,100% 92%,0 92%)}
+.shape.warn span{background:#fff;clip-path:polygon(50% 0,100% 92%,0 92%);width:72px;height:66px;display:grid;place-items:end center;font-size:1.7rem;padding-bottom:4px;margin-top:10px}
+.kind{font-size:.8rem;color:var(--muted);font-weight:700}
+
+footer{background:linear-gradient(135deg,#2b1b6e,#7b2ff7);color:#fff;text-align:center;padding:0 1rem 2rem}
+footer a{color:var(--yellow)}
+.kerb{height:16px;background:repeating-linear-gradient(90deg,var(--pink) 0 30px,#fff 30px 60px);margin-bottom:1.4rem}
+@media (max-width:700px){footer{padding-bottom:6.5rem}}
+
+</style>
+</head><body>
+<header class="hero">
+  <div class="sun" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div>
+      <h1>RoadSafe 🚦</h1>
+      <p class="tag">Road-safety information, emergency contacts and accident-prevention tips for Tamil Nadu and India.</p>
+      <p class="tag ta" lang="ta">பாதுகாப்பாகப் பயணிப்போம் – உயிர் ஒன்றே, உறுதியாகக் காப்போம்.</p>
+      <div class="flags"><span>🇮🇳 India</span><span>📍 Tamil Nadu</span><span>📞 One-tap calling</span></div>
+    </div>
+    <div class="signal" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+  <div class="road" aria-hidden="true"></div>
+</header>
+
+<a class="sos" href="tel:112"><span>In an emergency, call</span><b>112</b><span>Tap to call</span></a>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap tabs-in" role="tablist">
+    <button class="tab" role="tab" data-tab="info" aria-selected="true"><i>ℹ️</i>Info</button>
+    <button class="tab" role="tab" data-tab="rules" aria-selected="false"><i>⚖️</i>Rules</button>
+    <button class="tab" role="tab" data-tab="contacts" aria-selected="false"><i>📞</i>Contacts</button>
+    <button class="tab" role="tab" data-tab="tips" aria-selected="false"><i>🛡️</i>Tips</button>
+    <button class="tab" role="tab" data-tab="signs" aria-selected="false"><i>🚸</i>Signs</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="info" class="panel">
+    <h2>Why road safety matters</h2>
+    <div class="stats" id="stats"></div>
+    <p class="src">Source: Ministry of Road Transport &amp; Highways (MoRTH), Road Accidents in India 2023. Two-wheeler riders were about 44% of deaths and pedestrians over 20%.</p>
+
+    <h2>What kills on Indian roads</h2>
+    <div class="box"><ul class="bars" id="causes"></ul></div>
+    <p class="src">Share of 2023 road deaths linked to each factor. Factors overlap, so the bars do not add up to 100%. Helmet non-use killed 54,568 riders and seat-belt non-use killed 16,025 people.</p>
+
+    <h2>The golden hour</h2>
+    <div class="callout">
+      <p>The first hour after a crash decides who survives. Call <a href="tel:108">108</a> or <a href="tel:112">112</a> right away.</p>
+      <p>Under the <b>Good Samaritan</b> rules (Section 134A, Motor Vehicles Act), you can help an injured person without being forced to pay, stay or become a witness.</p>
+      <div class="row"><button class="btn" data-go="contacts">See all contacts</button><button class="btn ghost" data-go="rules">Know the rules</button></div>
+    </div>
+  </section>
+
+  <section id="rules" class="panel" hidden>
+    <h2>Rules and penalties</h2>
+    <p class="note">Maximum penalties under the Motor Vehicles (Amendment) Act, 2019. Tamil Nadu has kept some fines lower than the central rates, so the challan you receive can differ. Check the Tamil Nadu Police or Parivahan e-Challan portal.</p>
+    <input class="search" id="ruleSearch" type="search" placeholder="🔍 Search a rule, e.g. helmet, licence, drink" aria-label="Search rules">
+    <div class="cards" id="rules"></div>
+    <p class="empty" id="ruleEmpty" hidden>No rule matches that search. Try “helmet” or “speed”.</p>
+  </section>
+
+  <section id="contacts" class="panel" hidden>
+    <h2>Emergency contacts</h2>
+    <p class="note">Tap any tile to open your phone's dialer. 112 works even without balance.</p>
+    <div class="cards" id="contactList"></div>
+
+    <h2>Share my location</h2>
+    <div class="callout">
+      <p>Send your exact spot to someone you trust, or read it out to the ambulance.</p>
+      <div class="row"><button class="btn" id="shareLoc">📍 Share on WhatsApp</button><button class="btn ghost" id="copyLoc">Copy location link</button></div>
+      <p class="status" id="locStatus" role="status"></p>
+    </div>
+
+    <h2>At the scene of an accident</h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <section id="tips" class="panel" hidden>
+    <h2>Accident-prevention tips</h2>
+    <div class="chips" id="tipFilters" role="group" aria-label="Filter tips"></div>
+    <div id="tipList"></div>
+
+    <h2>Before you start your journey</h2>
+    <div class="box">
+      <div class="prog"><span id="prog"></span></div>
+      <p class="score" id="score">0 of 7 done</p>
+      <div id="checkList"></div>
+    </div>
+  </section>
+
+  <section id="signs" class="panel" hidden>
+    <h2>Road signs you should know</h2>
+    <p class="note">Learn the shape first: red circle means “do not”, blue circle means “you must”, red triangle means “be careful”.</p>
+    <div class="cards" id="signList"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="kerb" aria-hidden="true"></div>
+  <p>RoadSafe is an awareness tool, not legal advice. In an emergency call <a href="tel:112">112</a> first.</p>
+  <p>Drive slow. Reach home. வீடு சேருங்கள்.</p>
+</footer>
+
+<script>
+const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
+
+/* Source: MoRTH "Road Accidents in India 2023" (published 2025) */
+const STATS=[
+ ["4.80 lakh","road accidents in India in 2023 (4,80,583)","🚗"],
+ ["1.73 lakh","people killed, about 474 every day (1,72,890)","💔"],
+ ["67,213","accidents in Tamil Nadu, the highest of any state (14% of India)","📍"],
+ ["#2","Tamil Nadu ranks second for deaths, with 10.6% of the national total","⚠️"],
+];
+const CAUSES=[
+ ["Over-speeding",68.1,"#e63946"],
+ ["No helmet (two-wheeler riders)",31.6,"#ff8a00"],
+ ["No seat belt",9.3,"#7b2ff7"],
+ ["Drink, red light, mobile phone",4.3,"#3a86ff"],
+ ["Potholes",1.3,"#00b8a9"],
+];
+const RULES=[
+ ["🪖","Helmet (rider and pillion)","Wear a BIS-marked helmet with the strap fastened. It cuts the risk of death in a crash sharply.","₹1,000 + 3-month licence ban"],
+ ["💺","Seat belt","Mandatory for driver and every passenger, in front and back seats.","₹1,000"],
+ ["🍺","Drink and drive","Legal limit is 30 mg alcohol per 100 ml blood. Section 185, Motor Vehicles Act.","₹10,000 and/or 6 months jail"],
+ ["🔁","Repeat drink driving","A second offence within three years is punished more heavily.","₹15,000 and/or 2 years jail"],
+ ["📵","Mobile phone while driving","Do not hold or text. Use a hands-free mount for maps only.","Up to ₹5,000"],
+ ["⚡","Over-speeding","Obey posted limits. Speed causes 68% of road deaths.","₹1,000–2,000"],
+ ["🏍️","Triple riding","Only the rider and one pillion are allowed on a two-wheeler.","₹1,000 + licence ban"],
+ ["🪪","No driving licence","Carry your licence, RC, insurance and PUC. Digital copies in DigiLocker or mParivahan are valid.","₹5,000"],
+ ["🛡️","No insurance","Third-party insurance is compulsory for every vehicle.","₹2,000"],
+ ["🚑","Blocking an ambulance","Move left and give way to ambulances, fire engines and police.","₹10,000"],
+ ["🚔","Disobeying traffic police","Follow the signals and hand directions of the police on duty.","₹2,000"],
+ ["👦","Driving under 18","The owner or guardian is held responsible.","₹25,000 + up to 3 years jail"],
+ ["↖️","Keep left","India drives on the left. Overtake only from the right.","Challan + crash risk"],
+];
+const CONTACTS=[
+ ["🚨","All emergencies (Police, Fire, Ambulance)","Works on any phone","112","112","k1"],
+ ["🚑","Ambulance (Tamil Nadu 108)","Free, 24×7","108","108","k2"],
+ ["🚓","Police","Report an accident","100","100","k3"],
+ ["🚒","Fire and Rescue","Vehicle fire, trapped","101","101","k1"],
+ ["🏥","Ambulance (national)","Patient transport","102","102","k2"],
+ ["🛣️","NHAI highway helpline","Breakdown, accident on NH","1033","1033","k4"],
+ ["🩺","Tamil Nadu health helpline","Medical advice","104","104","k5"],
+ ["🌊","Disaster management","Floods, cyclone, rescue","1070","1070","k5"],
+ ["👩","Women helpline","Safety and abuse","1091","1091","k6"],
+ ["🧒","Childline","Child in distress","1098","1098","k6"],
+];
+const STEPS=[
+ ["Stop and stay safe","Park clear of traffic, switch on hazard lights and keep to the left."],
+ ["Call 112 or 108","Say the place, a landmark or highway KM stone, and how many are hurt."],
+ ["Do not move the injured","Move them only if there is fire or danger. Moving them can damage the spine."],
+ ["Stop the bleeding","Press a clean cloth firmly on the wound. Do not pull out embedded objects."],
+ ["Stay with them","Keep them warm, calm and talking until help arrives."],
+ ["You are protected","Good Samaritan rules (Section 134A) mean you cannot be forced to pay, stay or give your name."],
+];
+const TIPS={
+ "Two-wheeler":["Wear a BIS helmet and fasten the strap. Insist your pillion does too.","Keep the headlight on in daytime to be seen by lorries and buses.","Stay out of a truck's blind spot. If you cannot see its mirror, it cannot see you.","Wear bright or reflective clothing at night.","Slow down on wet roads, oil patches and potholes, especially in the Northeast monsoon."],
+ "Car and bus":["Fasten seat belts in every seat and use child seats for small children.","Keep a 3-second gap from the vehicle ahead. Double it in rain.","Check mirrors and the blind spot before changing lane.","Never drive after drinking or when sleepy. Rest every 2 hours on long trips.","Dip headlights for oncoming traffic on ghat roads and highways."],
+ "Pedestrian":["Cross only at zebra crossings or signals. Look right, left, then right again.","Do not use a phone or earphones while crossing.","Walk facing traffic where there is no footpath.","Wear light colours at night and carry a torch on unlit village roads.","Hold children's hands near roads, bus stops and school gates."],
+ "Highway":["Slow vehicles keep left. Overtake on the right only when the road is clear.","Watch for stray cattle, tractors and unlit parked lorries after dark.","Never stop on the carriageway. Use the shoulder or service road.","Highways are under 5% of roads but cause over half of deaths. Respect the speed limit.","Call NHAI 1033 if you are stranded or see a crash."],
+ "Festival and weather":["Expect heavy traffic and drunk drivers around Pongal, Deepavali and long weekends.","Avoid flooded underpasses. Even 30 cm of water can float a car.","In fog use low beam and fog lamps, never high beam.","Never overload a vehicle. Plan the return journey early instead of rushing.","Check tyres, brakes and lights before every long trip."],
+};
+const CHECK=["Helmet on and strap fastened","Seat belt on for everyone in the car","Licence, RC and insurance with me","Phone on silent and mounted, not in hand","I have not had any alcohol","Tyres, brakes and lights checked","I am rested and not in a hurry"];
+const SIGNS=[
+ ["prohibit","🚫","No entry","Prohibitory (red circle)","You must not go this way."],
+ ["prohibit","🔇","No horn","Prohibitory (red circle)","Common near hospitals and schools."],
+ ["mandatory","⬆️","Go straight","Mandatory (blue circle)","You must follow this direction."],
+ ["mandatory","🚲","Cycle track","Mandatory (blue circle)","Reserved for cyclists."],
+ ["warn","🐄","Cattle crossing","Warning (red triangle)","Slow down. Animals may be on the road."],
+ ["warn","↪️","Sharp curve","Warning (red triangle)","Reduce speed before the bend."],
+ ["warn","🚸","School ahead","Warning (red triangle)","Children may cross. Drive slowly."],
+ ["warn","⚠️","Slippery road","Warning (red triangle)","Brake gently, avoid sudden turns."],
+];
+
+/* Render */
+$("#stats").innerHTML=STATS.map(([n,t,e])=>`<div class="stat" data-e="${e}"><b>${n}</b><span>${t}</span></div>`).join("");
+$("#causes").innerHTML=CAUSES.map(([n,v,c])=>`<li><span>${n}</span><span class="track"><span class="fill" data-w="${v}" style="background:${c}"></span></span><em>${v}%</em></li>`).join("");
+$("#rules").innerHTML=RULES.map(([i,t,d,f])=>`<article class="card" data-k="${(t+" "+d).toLowerCase()}"><div class="ic">${i}</div><h3>${t}</h3><p>${d}</p><span class="fine">${f}</span></article>`).join("");
+$("#contactList").innerHTML=CONTACTS.map(([i,n,s,show,dial,k])=>`<a class="call ${k}" href="tel:${dial}"><span class="ic">${i}</span><h3>${n}<small>${s}</small></h3><span class="num">${show}</span></a>`).join("");
+$("#steps").innerHTML=STEPS.map(([t,d])=>`<li><b>${t}</b>${d}</li>`).join("");
+$("#signList").innerHTML=SIGNS.map(([ty,sy,n,k,d])=>`<article class="card sign"><div class="shape ${ty} ${ty==="warn"?"":"round"}">${ty==="warn"?`<span>${sy}</span>`:sy}</div><h3>${n}</h3><span class="kind">${k}</span><p>${d}</p></article>`).join("");
+
+/* Tips */
+$("#tipFilters").innerHTML=["All",...Object.keys(TIPS)].map((c,i)=>`<button class="chip" data-c="${c}" aria-pressed="${i===0}">${c}</button>`).join("");
+function tips(cat){const l=cat==="All"?Object.entries(TIPS):[[cat,TIPS[cat]]];
+ $("#tipList").innerHTML=l.map(([k,v],i)=>`<details ${cat!=="All"||i===0?"open":""}><summary>${k}</summary><ul>${v.map(x=>`<li>${x}</li>`).join("")}</ul></details>`).join("")}
+tips("All");
+$("#tipFilters").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;$$(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));tips(b.dataset.c)});
+
+/* Checklist */
+$("#checkList").innerHTML=CHECK.map((t,i)=>`<label class="check"><input type="checkbox"> ${t}</label>`).join("");
+$("#checkList").addEventListener("change",()=>{const a=$$("#checkList input"),n=a.filter(x=>x.checked).length;
+ $("#prog").style.width=n/a.length*100+"%";
+ $("#score").textContent=n===a.length?"All set. Ride safe! 🎉":`${n} of ${a.length} done`});
+
+/* Tabs */
+function show(id,push=true){
+ if(!$("#"+id))id="info";
+ $$(".panel").forEach(p=>p.hidden=p.id!==id);
+ $$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
+ if(id==="info")requestAnimationFrame(()=>setTimeout(()=>$$(".fill").forEach(f=>f.style.width=f.dataset.w+"%"),60));
+ if(push){try{history.replaceState(null,"","#"+id)}catch(e){}}
+ window.scrollTo({top:0});
+}
+$$(".tab").forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab)));
+$$("[data-go]").forEach(b=>b.addEventListener("click",e=>{e.preventDefault();show(b.dataset.go)}));
+show((location.hash||"").slice(1)||"info",false);
+
+/* Rule search */
+$("#ruleSearch").addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase();let n=0;
+ $$("#rules .card").forEach(c=>{const m=c.dataset.k.includes(q);c.hidden=!m;n+=m});$("#ruleEmpty").hidden=n>0});
+
+/* Location */
+function getLink(){const s=$("#locStatus");return new Promise(r=>{
+ if(!navigator.geolocation){s.textContent="Location is not available on this device.";return r(null)}
+ s.textContent="Finding your location…";
+ navigator.geolocation.getCurrentPosition(p=>{s.textContent="Location found.";r(`https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`)},
+ ()=>{s.textContent="Could not get location. Turn on GPS and allow location access.";r(null)},{enableHighAccuracy:true,timeout:12000})})}
+$("#shareLoc").addEventListener("click",async()=>{const l=await getLink();if(l)window.open("https://wa.me/?text="+encodeURIComponent("I need help. My location: "+l),"_blank","noopener")});
+$("#copyLoc").addEventListener("click",async()=>{const l=await getLink();if(!l)return;
+ try{await navigator.clipboard.writeText(l);$("#locStatus").textContent="Link copied. Paste it into any message."}catch(e){$("#locStatus").textContent="Your link: "+l}});
+
+</script>
+</body></html>
