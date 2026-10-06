@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RoadSafe 🚦 – Road safety for Tamil Nadu &amp; India</title>
+<meta name="theme-color" content="#7b2ff7">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="hero">
+  <div class="sun" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div>
+      <h1>RoadSafe 🚦</h1>
+      <p class="tag">Road-safety information, emergency contacts and accident-prevention tips for Tamil Nadu and India.</p>
+      <p class="tag ta" lang="ta">பாதுகாப்பாகப் பயணிப்போம் – உயிர் ஒன்றே, உறுதியாகக் காப்போம்.</p>
+      <div class="flags"><span>🇮🇳 India</span><span>📍 Tamil Nadu</span><span>📞 One-tap calling</span></div>
+    </div>
+    <div class="signal" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+  <div class="road" aria-hidden="true"></div>
+</header>
+
+<a class="sos" href="tel:112"><span>In an emergency, call</span><b>112</b><span>Tap to call</span></a>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap tabs-in" role="tablist">
+    <button class="tab" role="tab" data-tab="info" aria-selected="true"><i>ℹ️</i>Info</button>
+    <button class="tab" role="tab" data-tab="rules" aria-selected="false"><i>⚖️</i>Rules</button>
+    <button class="tab" role="tab" data-tab="contacts" aria-selected="false"><i>📞</i>Contacts</button>
+    <button class="tab" role="tab" data-tab="tips" aria-selected="false"><i>🛡️</i>Tips</button>
+    <button class="tab" role="tab" data-tab="signs" aria-selected="false"><i>🚸</i>Signs</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="info" class="panel">
+    <h2>Why road safety matters</h2>
+    <div class="stats" id="stats"></div>
+    <p class="src">Source: Ministry of Road Transport &amp; Highways (MoRTH), Road Accidents in India 2023. Two-wheeler riders were about 44% of deaths and pedestrians over 20%.</p>
+
+    <h2>What kills on Indian roads</h2>
+    <div class="box"><ul class="bars" id="causes"></ul></div>
+    <p class="src">Share of 2023 road deaths linked to each factor. Factors overlap, so the bars do not add up to 100%. Helmet non-use killed 54,568 riders and seat-belt non-use killed 16,025 people.</p>
+
+    <h2>The golden hour</h2>
+    <div class="callout">
+      <p>The first hour after a crash decides who survives. Call <a href="tel:108">108</a> or <a href="tel:112">112</a> right away.</p>
+      <p>Under the <b>Good Samaritan</b> rules (Section 134A, Motor Vehicles Act), you can help an injured person without being forced to pay, stay or become a witness.</p>
+      <div class="row"><button class="btn" data-go="contacts">See all contacts</button><button class="btn ghost" data-go="rules">Know the rules</button></div>
+    </div>
+  </section>
+
+  <section id="rules" class="panel" hidden>
+    <h2>Rules and penalties</h2>
+    <p class="note">Maximum penalties under the Motor Vehicles (Amendment) Act, 2019. Tamil Nadu has kept some fines lower than the central rates, so the challan you receive can differ. Check the Tamil Nadu Police or Parivahan e-Challan portal.</p>
+    <input class="search" id="ruleSearch" type="search" placeholder="🔍 Search a rule, e.g. helmet, licence, drink" aria-label="Search rules">
+    <div class="cards" id="rules"></div>
+    <p class="empty" id="ruleEmpty" hidden>No rule matches that search. Try “helmet” or “speed”.</p>
+  </section>
+
+  <section id="contacts" class="panel" hidden>
+    <h2>Emergency contacts</h2>
+    <p class="note">Tap any tile to open your phone's dialer. 112 works even without balance.</p>
+    <div class="cards" id="contactList"></div>
+
+    <h2>Share my location</h2>
+    <div class="callout">
+      <p>Send your exact spot to someone you trust, or read it out to the ambulance.</p>
+      <div class="row"><button class="btn" id="shareLoc">📍 Share on WhatsApp</button><button class="btn ghost" id="copyLoc">Copy location link</button></div>
+      <p class="status" id="locStatus" role="status"></p>
+    </div>
+
+    <h2>At the scene of an accident</h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <section id="tips" class="panel" hidden>
+    <h2>Accident-prevention tips</h2>
+    <div class="chips" id="tipFilters" role="group" aria-label="Filter tips"></div>
+    <div id="tipList"></div>
+
+    <h2>Before you start your journey</h2>
+    <div class="box">
+      <div class="prog"><span id="prog"></span></div>
+      <p class="score" id="score">0 of 7 done</p>
+      <div id="checkList"></div>
+    </div>
+  </section>
+
+  <section id="signs" class="panel" hidden>
+    <h2>Road signs you should know</h2>
+    <p class="note">Learn the shape first: red circle means “do not”, blue circle means “you must”, red triangle means “be careful”.</p>
+    <div class="cards" id="signList"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="kerb" aria-hidden="true"></div>
+  <p>RoadSafe is an awareness tool, not legal advice. In an emergency call <a href="tel:112">112</a> first.</p>
+  <p>Drive slow. Reach home. வீடு சேருங்கள்.</p>
+</footer>
+
+<script src="script.js"></script>
+</body></html>
